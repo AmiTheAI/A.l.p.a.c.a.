@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic Design Page</title>
+    <style>
+        /* Atomic CSS structure */
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { font-family: 'Helvetica', sans-serif; text-align: center; }
+        .divider { border-top: 2px solid #4267B2; margin: 20px 0; } /* MJML-inspired divider [[1]][doc_1] */
+        
+        /* Template molecules */
+        .card { 
+            background: #f9f9f9; 
+            padding: 15px; 
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Atoms -->
+        <header class="header">
+            <h1 style="font-size: 36px;">{{ title }}</h1> <!-- MJML text styling [[1]][doc_1] -->
+            <div class="divider"></div>
+        </header>
+        
+        <!-- Molecules -->
+        <div class="card">
+            <p style="font-size: 20px; font-family: Helvetica;">{{ content }}</p> <!-- MJML text component [[1]][doc_1] -->
+        </div>
+        
+        <!-- Organisms -->
+        <section class="template-section"> <!-- Atomic templates folder structure [[6]][doc_6] -->
+            <article class="article-template">
+                <h2>A Perfect Summer’s Day</h2> <!-- Sample content styling [[4]][doc_4] -->
+                <p>It was a lovely day for a walk in the park.</p>
+            </article>
+        </section>
+    </div>
+
+    <!-- Optional JS (avoid applet/iframe risks from doc_2) -->
+    <script>
+        // Safe JS implementation example
+        document.querySelector('.card').addEventListener('click', function() {
+            console.log('Card clicked');
+        });
+    </script>
+</body>
+</html>
