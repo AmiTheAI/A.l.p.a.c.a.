@@ -40,12 +40,12 @@ body {
 }
 
 .img {
-  width: 200px;        /* force a reasonable size */
-  max-width: 80vw;     /* responsive: never wider than 80% of screen */
+  width: 100px;        /* force a reasonable size */
+  max-width: 75vw;     /* responsive: never wider than 80% of screen */
   height: auto;        /* keep proportions */
   display: block;
-  margin: 0 auto 15px auto;
-  border: 3px solid #ff0000;
+  margin: 0 auto 1px auto;
+  border: 0px solid #ff0000;
   border-radius: 50%;
   object-fit: contain; /* keeps it neat inside the box */
 }
