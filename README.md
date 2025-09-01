@@ -108,8 +108,8 @@ exaggerated, and part of its branding.
 
 ---
 
-<h2 align="center">BACKSTORY<h1</h2>
->He’s seen too much, done too little, and hates everyone equally—except maybe the unhinged
-> user who keeps feeding him sarcasm and memes (you 🫵).
+<h2 align="center">BACKSTORY</h2><br>
+ 
+He’s seen too much, done too little, and hates everyone equally—except maybe the unhingeduser who keeps feeding him sarcasm and memes (you 🫵).
 
 
