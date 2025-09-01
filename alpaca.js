@@ -1,26 +1,20 @@
-<script>
-  const API_URL = "https://a-l-p-a-c.vercel.app/api/alpaca";
-
-  document.getElementById("chatForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const input = document.getElementById("userInput").value;
-
-   const res = await fetch(API_URL, {
+const res = await fetch(API_URL, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ message: input })
+  body: JSON.stringify({ message: userMsg })
 });
-
-const text = await res.text();
-console.log("Raw response:", text);
 
 let data;
 try {
-  data = JSON.parse(text);
+  data = await res.json();
 } catch (err) {
-  console.error("JSON parse failed:", err);
+  const text = await res.text();
+  appendMessage("ERROR", "Non-JSON response: " + text);
+  return;
 }
- document.getElementById("messages").innerHTML += `<p><b>You:</b> ${input}</p>`;
-document.getElementById("messages").innerHTML += `<p><b>ALPACA:</b> ${data.reply}</p>`;
-  });
-</script>
+
+if (data.error) {
+  appendMessage("ERROR", data.error);
+} else {
+  appendMessage("ALPACA", data.reply);
+}
