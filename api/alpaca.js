@@ -36,4 +36,7 @@ export default async function handler(req, res) {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+const { message } = body;
+}
 }
