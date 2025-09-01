@@ -81,6 +81,11 @@ body {
   color: #111;
 }
 
+.img {
+  max-width: 100%; /* Image will scale down to fit container, but not scale up beyond its natural size */
+  height: auto;
+}
+
 /* Flicker animation for ALPACA hallucination images */
 @keyframes alpacaFlicker {
   0%   { opacity: 0; }
