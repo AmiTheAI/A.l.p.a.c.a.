@@ -29,6 +29,10 @@ body {
   border: 2px dashed #ff0000;
   box-shadow: 0 0 15px rgba(255,0,0,0.5);
 }
+.img {
+  max-width: 100%; /* Image will scale down to fit container, but not scale up beyond its natural size */
+  height: auto;
+}
 
 .messages {
   height: 300px;
@@ -81,10 +85,7 @@ body {
   color: #111;
 }
 
-.img {
-  max-width: 100%; /* Image will scale down to fit container, but not scale up beyond its natural size */
-  height: auto;
-}
+
 
 /* Flicker animation for ALPACA hallucination images */
 @keyframes alpacaFlicker {
