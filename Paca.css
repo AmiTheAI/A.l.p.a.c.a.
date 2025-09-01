@@ -19,7 +19,12 @@
 
 .footer {
   font-size: 14px;
-}
+  }
+
+ .img {
+  max-width: 100%; /* Image will scale down to fit container, but not scale up beyond its natural size */
+  height: auto;
+  }
 
 .chatbox {
   max-width: 800px;
