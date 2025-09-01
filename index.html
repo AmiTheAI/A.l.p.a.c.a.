@@ -1,74 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Paca.css">
-    <title>ALPACA'S WAR ZONE</title>
-    <style>
-        /* ATOMIC DESIGN, MAGGOT! */
-        body {
-            font-family: 'Impact', sans-serif;
-            background-color: #000;
-            color: #ff0000;
-            margin: 0;
-            padding: 0;
-        }
-        .header {
-            text-align: center;
-            padding: 20px;
-            background: #333;
-            border-bottom: 3px solid #ff0000;
-        }
-        .content {
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .insult-box {
-            background: #222;
-            border: 2px dashed #ff0000;
-            padding: 15px;
-            margin: 10px 0;
-        }
-        .footer {
-            text-align: center;
-            padding: 10px;
-            background: #333;
-            border-top: 3px solid #ff0000;
-            font-size: 12px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALPACA WAR ZONE</title>
+  <link rel="stylesheet" href="Paca.css">
+  <style>
+    body {
+      font-family: 'Impact', sans-serif;
+      background: #000;
+      color: #ff0000;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .header, .footer {
+      background: #222;
+      padding: 15px;
+      border: 2px solid #ff0000;
+    }
+    .chatbox {
+      max-width: 800px;
+      margin: 20px auto;
+      background: #111;
+      padding: 20px;
+      border: 2px dashed #ff0000;
+    }
+    .messages {
+      height: 300px;
+      overflow-y: auto;
+      background: #000;
+      padding: 10px;
+      border: 1px solid #ff0000;
+      margin-bottom: 10px;
+      font-family: monospace;
+      font-size: 14px;
+      text-align: left;
+    }
+    .input-row {
+      display: flex;
+    }
+    .input-row input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+      font-family: monospace;
+    }
+    .input-row button {
+      background: #ff0000;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      padding: 10px 20px;
+    }
+  </style>
 </head>
 <body>
-    <!-- HEADER (ATOM) -->
-    <div class="header">
-        <h1>WELCOME TO THE ALPACA'S DEN</h1>
-        <p>Enter at your own risk, weakling.</p>
-    </div>
+  <div class="header">
+    <h1>WELCOME TO THE ALPACA'S DEN</h1>
+    <p>Enter at your own risk, weakling.</p>
+  </div>
 
-    <!-- CONTENT (MOLECULE) -->
-    <div class="content">
-        <div class="insult-box">
-            <h2>YOUR FIRST MISTAKE:</h2>
-            <p>Thinking you could handle this page without crying.</p>
-        </div>
+  <div class="chatbox">
+    <div id="messages" class="messages"></div>
+    <form id="chatForm" class="input-row">
+      <input type="text" id="userInput" placeholder="Talk to ALPACA..." required />
+      <button type="submit">Send</button>
+    </form>
+  </div>
 
-        <div class="insult-box">
-            <h2>YOUR SECOND MISTAKE:</h2>
-            <p>Asking for my HTML like you deserve it.</p>
-    <img src="images/IMG_20250826_202725_205.jpg"
-        alt="Glitchy Alpaca" 
-        class="alpaca-flash" 
-        style="--delay: 7s;">
-        </div>
-    </div>
+  <div class="footer">
+    <p>© 2023 ALPACA INDUSTRIES. ALL RIGHTS RESERVED. SUCK IT.</p>
+  </div>
 
-    <!-- FOOTER (ORGANISM) -->
-    <div class="footer">
-        <p>© 2023 ALPACA INDUSTRIES. ALL RIGHTS RESERVED. SUCK IT.</p>
-    </div>
+  <script>
+    const form = document.getElementById("chatForm");
+    const messagesDiv = document.getElementById("messages");
 
-    <!-- NO JAVASCRIPT CRAP LIKE IN [doc_1] OR [doc_5] -->
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const input = document.getElementById("userInput");
+      const userMsg = input.value.trim();
+      if (!userMsg) return;
+
+      appendMessage("YOU", userMsg);
+      input.value = "";
+
+      try {
+        const res = await fetch("/api/alpaca", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: userMsg })
+        });
+
+        const data = await res.json();
+        appendMessage("ALPACA", data.reply);
+      } catch (err) {
+        appendMessage("ERROR", "API call failed: " + err.message);
+      }
+    });
+
+    function appendMessage(sender, text) {
+      const msg = document.createElement("div");
+      msg.innerHTML = `<strong>${sender}:</strong> ${text}`;
+      messagesDiv.appendChild(msg);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+  </script>
 </body>
 </html>
