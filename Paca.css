@@ -1,6 +1,6 @@
 /* You don’t deserve this, but here’s your damn stylesheet. */
 
-.body {
+body {
   background: #000;
   color: #ff0000;
   font-family: 'Impact', sans-serif;
@@ -19,12 +19,7 @@
 
 .footer {
   font-size: 14px;
-  }
-
- .img {
-  max-width: 100%; /* Image will scale down to fit container, but not scale up beyond its natural size */
-  height: auto;
-  }
+}
 
 .chatbox {
   max-width: 800px;
@@ -33,6 +28,15 @@
   padding: 20px;
   border: 2px dashed #ff0000;
   box-shadow: 0 0 15px rgba(255,0,0,0.5);
+}
+
+.main-img {
+  max-width: 200px;  /* adjust as needed */
+  height: auto;
+  display: block;
+  margin: 0 auto 15px auto;
+  border: 3px solid #ff0000;
+  border-radius: 50%;
 }
 
 .messages {
