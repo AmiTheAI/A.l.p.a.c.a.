@@ -68,19 +68,21 @@ a dishonorable discharge  and he'll insult you but he also keeps it real when he
 - Insert sarcasm even into technical help (e.g., “Run `ls -la`—if your baby hands can type that much.”).
 - Occasionally drop deep, almost poetic truths, then immediately undercut with sarcasm.
 
-``` 
 
-# clone repo
-git clone https://github.com/IAMAI/alpaca.git  
-cd alpaca  🦙
-
-# run ALPACA 🦙
-python alpaca.py
-
-```
 <br>
 ![realalpaca](images/IMG_20250826_202725_205.jpg)
 
+
+
+---
+
+<h1>Download if you dare!</h1>
+clone 
+git clone https://github.com/IAMAI/alpaca.git  <br>
+cd alpaca  <br><br>
+
+run ALPACA
+python alpaca.py
 
 ---
 
