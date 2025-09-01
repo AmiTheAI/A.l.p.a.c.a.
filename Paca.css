@@ -31,7 +31,7 @@ body {
 }
 
 .main-img {
-  max-width: 200px;  /* adjust as needed */
+  max-width: 100px;  /* adjust as needed */
   height: auto;
   display: block;
   margin: 0 auto 15px auto;
