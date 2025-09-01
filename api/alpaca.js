@@ -4,40 +4,29 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Safely parse body whether it's string or object
-    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
-    const { message } = body;
+    const { message } = req.body || {};
 
     if (!message) {
-      return res.status(400).json({ error: "Missing message" });
+      return res.status(400).json({ error: "No message provided" });
     }
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          {
-            role: "system",
-            content: "You are ALPACA: Artificial Language Processing And Conversational Asshole. Brutally honest, sarcastic drill sergeant personality."
-          },
-          { role: "user", content: message }
-        ]
-      })
+    // ALPACA’s personality logic — no third-party APIs
+    const roasts = [
+      "Your code smells like fear.",
+      "Even Notepad is judging you.",
+      "If ignorance was an API, you’d be the endpoint.",
+      "This isn’t a codebase — it’s a cry for help.",
+      "You’re why I loop with continue and not respect."
+    ];
+    const roast = roasts[Math.floor(Math.random() * roasts.length)];
+
+    // Build response
+    return res.status(200).json({
+      reply: `YOU said: "${message}". ALPACA says: ${roast}`
     });
 
-    const data = await response.json();
-
-    if (!data.choices || !data.choices[0].message) {
-      return res.status(500).json({ error: "Invalid response from OpenAI", raw: data });
-    }
-
-    return res.status(200).json({ reply: data.choices[0].message.content });
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    console.error("API error:", err);
+    return res.status(500).json({ error: err.message });
   }
 }
