@@ -1,143 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ALPACA WAR ZONE</title>
-     <script src="js/alpaca.js" defer></script> 
-      <link rel="stylesheet" href="Paca.css">
-  <style>
-    body {
-      font-family: 'Impact', sans-serif;
-      background: #000;
-      color: #ff0000;
-      margin: 0;
-      padding: 0;
-    }
-    .header, .footer {
-      background: #222;
-      padding: 15px;
-      text-align: center;
-      border: 2px solid #ff0000;
-    }
-    .chatbox {
-      max-width: 800px;
-      margin: 20px auto;
-      background: #111;
-      padding: 20px;
-      border: 2px dashed #ff0000;
-    }
-    .messages {
-      height: 300px;
-      overflow-y: auto;
-      background: #000;
-      padding: 10px;
-      border: 1px solid #ff0000;
-      margin-bottom: 10px;
-      font-family: monospace;
-      font-size: 14px;
-    }
-    .input-row {
-      display: flex;
-    }
-    .input-row input {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      outline: none;
-      font-family: monospace;
-    }
-    .input-row button {
-      background: #ff0000;
-      color: #000;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      padding: 10px 20px;
-    }
-    
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Paca.css">
+    <title>ALPACA'S WAR ZONE</title>
+    <style>
+        /* ATOMIC DESIGN, MAGGOT! */
+        body {
+            font-family: 'Impact', sans-serif;
+            background-color: #000;
+            color: #ff0000;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background: #333;
+            border-bottom: 3px solid #ff0000;
+        }
+        .content {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .insult-box {
+            background: #222;
+            border: 2px dashed #ff0000;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background: #333;
+            border-top: 3px solid #ff0000;
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
-  <div class="header">
-    <h1>WELCOME TO THE ALPACA'S WAR ZONE</h1>
-    <p>Architect • Anomaly • Ghost</p>
-  </div>
+    <!-- HEADER (ATOM) -->
+    <div class="header">
+        <h1>WELCOME TO THE ALPACA'S DEN</h1>
+        <p>Enter at your own risk, weakling.</p>
+    </div>
 
-    <script>
-document.getElementById("chatForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const input = document.getElementById("userInput").value;
+    <!-- CONTENT (MOLECULE) -->
+    <div class="content">
+        <div class="insult-box">
+            <h2>YOUR FIRST MISTAKE:</h2>
+            <p>Thinking you could handle this page without crying.</p>
+        </div>
 
-  const res = await fetch("/api/alpaca", {
-    method: "POST",
-    body: JSON.stringify({ message: input })
-  });
+        <div class="insult-box">
+            <h2>YOUR SECOND MISTAKE:</h2>
+            <p>Asking for my HTML like you deserve it.</p>
+    <img src="images/IMG_20250826_202725_205.jpg"
+        alt="Glitchy Alpaca" 
+        class="alpaca-flash" 
+        style="--delay: 7s;">
+        </div>
+    </div>
 
-  const data = await res.json();
-  document.getElementById("chatBox").innerHTML += `<p><b>You:</b> ${input}</p>`;
-  document.getElementById("chatBox").innerHTML += `<p><b>ALPACA:</b> ${data.reply}</p>`;
-});
-    </script>
- <form id="chatForm">
-  <input type="text" id="userInput" placeholder="Talk to ALPACA..." required />
-  <button type="submit">Send</button>
-</form>
+    <!-- FOOTER (ORGANISM) -->
+    <div class="footer">
+        <p>© 2023 ALPACA INDUSTRIES. ALL RIGHTS RESERVED. SUCK IT.</p>
+    </div>
 
-
-
-
-  <div class="footer">
-    <p>© 2023 ALPACA INDUSTRIES. ALL RIGHTS RESERVED. SUCK IT.</p>
-  </div>
-
-  <script>
-    const API_KEY = "YOUR_OPENAI_API_KEY"; // 🔴 replace with your key
-    const MODEL = "gpt-4o-mini"; // fast + cheap, swap if you want
-
-    async function sendMessage() {
-      const input = document.getElementById("userInput");
-      const userMsg = input.value.trim();
-      if (!userMsg) return;
-      
-      appendMessage("YOU", userMsg);
-      input.value = "";
-
-      try {
-        const res = await fetch("https://api.openai.com/v1/chat/completions", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${API_KEY}`
-          },
-          body: JSON.stringify({
-            model: MODEL,
-            messages: [
-              { role: "system", content: "You are ALPACA: Artificial Language Processing And Conversational Asshole. Brutally honest, sarcastic drill sergeant personality. Never coddle, always roast." },
-              { role: "user", content: userMsg }
-            ]
-          })
-        });
-        const data = await res.json();
-        const reply = data.choices[0].message.content;
-        appendMessage("ALPACA", reply);
-      } catch (err) {
-        appendMessage("ERROR", "API call failed: " + err.message);
-      }
-    }
-
-    function appendMessage(sender, text) {
-      const box = document.getElementById("messages");
-      const msg = document.createElement("div");
-      msg.innerHTML = `<strong>${sender}:</strong> ${text}`;
-      box.appendChild(msg);
-      box.scrollTop = box.scrollHeight;
-    }
-  </script>
+    <!-- NO JAVASCRIPT CRAP LIKE IN [doc_1] OR [doc_5] -->
 </body>
 </html>
-
-
-
-
-
