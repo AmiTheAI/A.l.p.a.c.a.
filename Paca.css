@@ -1,0 +1,22 @@
+@keyframes alpacaFlicker {
+  0%   { opacity: 0; }
+  10%  { opacity: 1; }
+  15%  { opacity: 0; }
+  25%  { opacity: 1; }
+  30%  { opacity: 0; }
+  50%  { opacity: 1; }
+  55%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+.alpaca-flash {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 300px;
+  z-index: 9999;
+  opacity: 0;
+  animation: alpacaFlicker 20s infinite;
+  animation-delay: var(--delay, 0s);
+}
