@@ -1,20 +1,12 @@
-const res = await fetch(API_URL, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ message: userMsg })
-});
+const API_URL = "https://a-l-p-a-c-njdunpqxk-amitheais-projects.vercel.app/api/alpaca";
 
-let data;
-try {
-  data = await res.json();
-} catch (err) {
-  const text = await res.text();
-  appendMessage("ERROR", "Non-JSON response: " + text);
-  return;
-}
+async function sendMessage(userMsg) {
+  const res = await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: userMsg }),
+  });
 
-if (data.error) {
-  appendMessage("ERROR", data.error);
-} else {
+  const data = await res.json();
   appendMessage("ALPACA", data.reply);
 }
