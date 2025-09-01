@@ -1,110 +1,55 @@
-/* You don’t deserve this, but here’s your damn stylesheet. */
-body {
-  background: #000;
-  color: #ff0000;
-  font-family: 'Impact', sans-serif;
-  margin: 0;
-  padding: 0;
-  text-align: center;
+// alpaca.js — Frontend logic for ALPACA WAR ZONE
+
+// === Face Flicker Madness ===
+const faces = document.querySelectorAll(".alpaca-face");
+
+function flashFaces() {
+  faces.forEach(f => f.classList.remove("active"));
+  const randomFace = faces[Math.floor(Math.random() * faces.length)];
+  randomFace.classList.add("active");
+  const nextFlash = Math.random() * 4000 + 1000; // 1s–5s
+  setTimeout(flashFaces, nextFlash);
 }
 
-.header, .footer {
-  background: #111;
-  padding: 15px;
-  border: 2px solid #ff0000;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
+window.addEventListener("load", flashFaces);
 
-.footer {
-  font-size: 14px;
-}
+// === Chat Logic ===
+const form = document.getElementById("chatForm");
+const messagesDiv = document.getElementById("messages");
 
-.chatbox {
-  max-width: 800px;
-  margin: 20px auto;
-  background: #111;
-  padding: 20px;
-  border: 2px dashed #ff0000;
-  box-shadow: 0 0 15px rgba(255,0,0,0.5);
-}
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const input = document.getElementById("userInput");
+  const userMsg = input.value.trim();
+  if (!userMsg) return;
 
-.messages {
-  height: 300px;
-  overflow-y: auto;
-  background: #000;
-  padding: 10px;
-  border: 1px solid #ff0000;
-  margin-bottom: 10px;
-  font-family: monospace;
-  font-size: 14px;
-  text-align: left;
-  color: #ff5555;
-}
+  appendMessage("YOU", userMsg);
+  input.value = "";
 
-.messages strong {
-  color: #ff0000;
-}
+  try {
+    const res = await fetch("/api/alpaca", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: userMsg })
+    });
 
-.input-row {
-  display: flex;
-}
+    const data = await res.json();
+    if (data.reply) {
+      appendMessage("ALPACA", data.reply);
+    } else {
+      appendMessage("ERROR", "Empty response from backend.");
+    }
+  } catch (err) {
+    appendMessage("ERROR", "API call failed: " + err.message);
+  }
+});
 
-.input-row input {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  outline: none;
-  font-family: monospace;
-  background: #000;
-  color: #ff0000;
-  border: 1px solid #ff0000;
+function appendMessage(sender, text) {
+  const msg = document.createElement("div");
+  msg.innerHTML = `<strong>${sender}:</strong> ${text}`;
+  messagesDiv.appendChild(msg);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
-
-.input-row input:focus {
-  box-shadow: 0 0 8px #ff0000;
-}
-
-.input-row button {
-  background: #ff0000;
-  color: #000;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  padding: 10px 20px;
-  transition: 0.2s;
-}
-
-.input-row button:hover {
-  background: #ff5555;
-  color: #111;
-}
-
-/* Flicker animation for ALPACA hallucination images */
-@keyframes alpacaFlicker {
-  0%   { opacity: 0; }
-  10%  { opacity: 1; }
-  15%  { opacity: 0; }
-  25%  { opacity: 1; }
-  30%  { opacity: 0; }
-  50%  { opacity: 1; }
-  55%  { opacity: 0; }
-  100% { opacity: 0; }
-}
-
-.alpaca-face {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  object-fit: contain;
-  opacity: 0;
-  transition: opacity 0.15s ease-in-out;
-}
-
-.alpaca-face.active {
-  opacity: 1;
-}
-
 .alpaca-hallucination {
   position: relative;
   width: 220px;
